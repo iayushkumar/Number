@@ -1,0 +1,175 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+
+<div class="container my-4">
+    <div class="d-flex justify-content-center mb-4">
+        <button type="button" class="btn btn-primary mx-2" onclick="prime()">Prime No</button>
+        <button type="button" class="btn btn-primary mx-2" onclick="Fibbo()">Fibonacci series</button>
+        <button type="button" class="btn btn-primary mx-2" onclick="Sno()">Strong No</button>
+        <button type="button" class="btn btn-primary mx-2" onclick="Am()">Armstrong No</button>
+        <button type="button" class="btn btn-primary mx-2" onclick="Fac()">Factorial</button>
+        <button type="button" class="btn btn-primary mx-2" onclick="Ftoc()">Convert F To C</button>
+    </div>
+
+    <div class="mb-4">
+        <textarea id="output" class="form-control bg-black text-white" rows="5"></textarea>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    const prime = () => {
+        var n = prompt("Enter a number:");
+        var outputDiv = document.getElementById("output");
+        var count = 0;
+
+        for (let i = 2; i < n; i++) {
+            if (n % i === 0) {
+                count++;
+            }
+        }
+
+        if (count === 0 && n > 1) {
+            outputDiv.innerHTML = `${n} is a prime number`;
+        } else {
+            outputDiv.innerHTML = `${n} is not a prime number`;
+        }
+    };
+
+    const Fibbo = () => {
+        var n = prompt("Enter the number of terms for Fibonacci series:");
+        var outputDiv = document.getElementById("output");
+
+        n = parseInt(n);
+
+        var fibSeries = [];
+
+        if (n <= 0) {
+            outputDiv.innerHTML = "Please enter a positive number for the Fibonacci series.";
+            return;
+        } else if (n === 1) {
+            fibSeries = [0];
+        } else if (n === 2) {
+            fibSeries = [0, 1];
+        } else {
+            fibSeries = [0, 1];
+
+            for (let i = 2; i < n; i++) {
+                fibSeries[i] = fibSeries[i - 1] + fibSeries[i - 2];
+            }
+        }
+
+        outputDiv.innerHTML = "Fibonacci series: " + fibSeries.join(", ");
+    };
+
+    const isStrongNumber = (num) => {
+        let sum = 0;
+        let tempNum = num;
+
+        while (tempNum > 0) {
+            let digit = tempNum % 10;
+            sum += factorial(digit);
+            tempNum = Math.floor(tempNum / 10);
+        }
+
+        return sum === num;
+    };
+
+    const factorial = (n) => {
+        if (n === 0 || n === 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    };
+
+    const Sno = () => {
+        var num = prompt("Enter a number:");
+        var outputDiv = document.getElementById("output");
+
+        num = parseInt(num);
+
+        if (isStrongNumber(num)) {
+            outputDiv.innerHTML = `${num} is a strong number`;
+        } else {
+            outputDiv.innerHTML = `${num} is not a strong number`;
+        }
+    };
+
+    const isArmstrongNumber = (num) => {
+        let numberOfDigits = num.toString().length;
+        let sum = 0;
+        let tempNum = num;
+
+        while (tempNum > 0) {
+            let digit = tempNum % 10;
+            sum += Math.pow(digit, numberOfDigits);
+            tempNum = Math.floor(tempNum / 10);
+        }
+
+        return sum === num;
+    };
+
+    const Am = () => {
+        var num = prompt("Enter a number:");
+        var outputDiv = document.getElementById("output");
+
+        num = parseInt(num);
+
+        if (isArmstrongNumber(num)) {
+            outputDiv.innerHTML = `${num} is an Armstrong number`;
+        } else {
+            outputDiv.innerHTML = `${num} is not an Armstrong number`;
+        }
+    };
+
+    const factorial1 = (n) => {
+        if (n === 0 || n === 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    };
+
+    const Fac = () => {
+        var num = prompt("Enter a number:");
+        var outputDiv = document.getElementById("output");
+
+        num = parseInt(num);
+
+        if (num < 0) {
+            outputDiv.innerHTML = "Please enter a non-negative integer for the factorial.";
+        } else {
+            outputDiv.innerHTML = `Factorial of ${num}: ${factorial1(num)}`;
+        }
+    };
+
+    const ftoc = (fahrenheit) => {
+        return (fahrenheit - 32) * (5 / 9);
+    };
+
+    const Ftoc = () => {
+        var fahrenheit = prompt("Enter temperature in Fahrenheit:");
+        var outputDiv = document.getElementById("output");
+
+        fahrenheit = parseFloat(fahrenheit);
+
+        if (isNaN(fahrenheit)) {
+            outputDiv.innerHTML = "Please enter a valid number for the temperature.";
+        } else {
+            const celsius = ftoc(fahrenheit);
+            outputDiv.innerHTML = `${fahrenheit}°F is equal to ${celsius.toFixed(2)}°C`;
+        }
+    };
+</script>
+
+</body>
+</html>
+
